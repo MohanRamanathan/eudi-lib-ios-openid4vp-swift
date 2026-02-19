@@ -45,15 +45,15 @@ internal actor ClientMetaDataValidator {
 
     let keySet = try? await extractKeySet(clientMetaData: clientMetaData)
     let formats = try? VpFormatsSupported(from: clientMetaData.vpFormatsSupported)
-    let supported = try responseEncryptionMethodsSupported(
-      unvalidated: clientMetaData
-    )
-    let responseEncryptionSpecification = try responseEncryptionSpecification(
-      responseMode: responseMode,
-      verifierSupportedEncryptionMethods: supported,
-      keySet: keySet,
-      responseEncryptionConfiguration: responseEncryptionConfiguration
-    )
+//    let supported = try responseEncryptionMethodsSupported(
+//      unvalidated: clientMetaData
+//    )
+//    let responseEncryptionSpecification = try responseEncryptionSpecification(
+//      responseMode: responseMode,
+//      verifierSupportedEncryptionMethods: supported,
+//      keySet: keySet,
+//      responseEncryptionConfiguration: responseEncryptionConfiguration
+//    )
     
     let validated = ClientMetaData.Validated(
       jwkSet: keySet,
@@ -62,7 +62,7 @@ internal actor ClientMetaDataValidator {
       idTokenJWEEnc: idTokenJWEEnc,
       subjectSyntaxTypesSupported: subjectSyntaxTypesSupported,
       vpFormatsSupported: try (formats ?? VpFormatsSupported.empty()),
-      responseEncryptionSpecification: responseEncryptionSpecification
+ //     responseEncryptionSpecification: responseEncryptionSpecification
     )
 
     return validated

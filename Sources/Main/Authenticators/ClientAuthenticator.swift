@@ -127,7 +127,7 @@ internal actor ClientAuthenticator {
     case .decentralizedIdentifier(let keyLookup):
       return try await didPublicKeyLookup(
         jws: try JWS(compactSerialization: jwt),
-        clientId: clientId,
+        clientId: verifierId.originalClientId,
         keyLookup: keyLookup
       )
       
@@ -223,12 +223,12 @@ internal actor ClientAuthenticator {
       throw ValidationError.validationError("kid not found in JWT header")
     }
     
-    guard
-      let keyUrl = AbsoluteDIDUrl.parse(kid),
-      keyUrl.string.hasPrefix(clientId)
-    else {
-      throw ValidationError.validationError("kid not found in JWT header")
-    }
+//    guard
+//      let keyUrl = AbsoluteDIDUrl.parse(kid),
+//      keyUrl.string.hasPrefix(clientId)
+//    else {
+//      throw ValidationError.validationError("kid not found in JWT header")
+//    }
     
     guard let clientIdAsDID = DID.parse(clientId) else {
       throw ValidationError.validationError("Invalid DID")
